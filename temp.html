@@ -1,0 +1,57 @@
+let result=data;
+document.querySelector('#demo').innerHTML="";
+for (index = 0; index < result.length; index++)
+{
+    document.querySelector('#demo').innerHTML+="<p>"+JSON.stringify(result[index].job).substr(1,JSON.stringify(result[index].job).length-2)+"</p>";
+}
+
+
+function getdata()
+{
+  var sql= document.getElementById('sql2').value;
+  console.log("Got Input value");
+  console.log(sql);
+  let formData = new FormData();
+  formData.append('sql', sql);
+  formData.append('submit', "submit");
+
+  fetch("/query",
+      {
+          body: formData,
+          method: "post"
+      });
+}
+
+
+
+console.log("Please input a query");
+var stdin = process.openStdin();
+stdin.addListener("data", function(d) {
+    let sql=d.toString().trim();
+    db.all(sql, [], (err, rows) => {
+      if (err) {
+        console.log(err);
+      }
+      rows.forEach(function(row){
+        console.log(row);
+      });
+    });
+  });
+
+
+
+
+  app.post("/query",function(req,res){
+    console.log(req.body);
+    let sql=req.body.sql;
+    console.log(sql);
+    db.all(sql, [], (err, rows) => {
+      if (err) {
+        console.log(err);
+      }
+      res.send(rows);
+      // rows.forEach(function(row){
+      //   res.send(row);
+      // });
+    });
+  });

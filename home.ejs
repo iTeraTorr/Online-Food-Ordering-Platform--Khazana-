@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Hello</title>
+    <style media="screen">
+      #formId
+      {
+        margin-top: 60px;
+      }
+      #demo
+      {
+        margin-top:60px;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <h1><%= title%></h1>
+    <h3>How are you?</h3>
+    <form id="formId"  method="post">
+      <input id="sql" type="text" name="sql" value="" placeholder="Enter your query here">
+      <!-- <button onclick="getdata()">Click me</button> -->
+      <input type="submit" name="submit" value="submit">
+    </form>
+    <div id="demo">
+    </div>
+    <script type="text/javascript">
+    $("#formId").submit(function (event){
+      $.post('/query', $("#formId").serialize(), function (data){
+     	  document.querySelector('#demo').innerHTML=JSON.stringify(data);
+        console.log(data);
+      });
+      event.preventDefault();
+    });
+    </script>
+  </body>
+</html>
