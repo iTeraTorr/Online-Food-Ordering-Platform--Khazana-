@@ -1,4 +1,5 @@
-# Online-Food-Ordering-Platform--Khazana-
+# Online-Food-Ordering-Platform--Khazana- 
+# Xomato of IIT Indore
 *A platform like Zomato to order food online from any nearby restaurant.
 *Online   Food   Ordering   Platform   ‘Khazana’  
 *Domain:   Web   Development,   Database   Management 
