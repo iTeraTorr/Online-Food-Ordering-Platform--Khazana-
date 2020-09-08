@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill</title>
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+    <style media="screen">
+      .page
+      {
+        width:60%;
+        margin: auto;
+        border: 2px solid black;
+      }
+      .container
+      {
+        padding: 30px;
+      }
+      .invoice
+      {
+          text-align: left;
+      }
+      .heading
+      {
+        text-align: center;
+      }
+      .address
+      {
+          padding:10px 0px;
+      }
+      .some-company
+      {
+        clear: both;
+      }
+      .invoice-details
+      {
+        text-align: left;
+        float: right;
+      }
+      .amount-paid
+      {
+        float: right;
+        padding: 10px 0px;
+      }
+      .additional-notes
+      {
+        border-bottom: 1px solid grey;
+        text-align: center;
+        letter-spacing: 0.3725em;
+        margin: 5px 0px;
+      }
+      .order
+      {
+        border-bottom: 2px dashed black;
+        margin-top: 40px;
+      }
+      @media only screen and (max-width: 768px) {
+        .page {
+          width: 95%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="container">
+        <a href="/">Back to Home</a>
+        <div class="heading f3 b bb">
+          My Orders
+        </div>
+        <% for(var index=0;index < order_ids.length;index++) { %>
+        <div class="order">
+          <div class="invoice f5 i b">
+            <p>Invoice no : <%= order_ids[index].order_id %></p>
+            <p>Order Date : <%= order_ids[index].order_date %></p>
+            <p>Order Date : <%= order_ids[index].order_time %> (UTC)</p>
+          </div>
+          <div class="address f5 b">
+            <%=order_ids[index].name%>,
+            <%=order_ids[index].street_name%>,
+            <%=order_ids[index].city%>,
+            Contact:<%=order_ids[index].contact_no%>
+          </div>
+          <div class="overflow-auto">
+            <table class="f6 w-100 mw8 center" cellspacing="0">
+              <thead>
+                <tr class="stripe-dark">
+                  <th class="fw6 tl pa3 bg-white">Food Name</th>
+                  <th class="fw6 tl pa3 bg-white">Price</th>
+                  <th class="fw6 tl pa3 bg-white">Quantity</th>
+                  <th class="fw6 tl pa3 bg-white">Total Price</th>
+                </tr>
+              </thead>
+              <tbody class="lh-copy">
+                <% for(var subindex=0;subindex < alldetails[index].length; subindex++) { %>
+                <tr class="stripe-dark">
+                  <td class="pa1"><%= alldetails[index][subindex].name %></td>
+                  <td class="pa1"><%= alldetails[index][subindex].price %></td>
+                  <td class="pa1"><%= alldetails[index][subindex].quantity %></td>
+                  <td class="pa1"><%= alldetails[index][subindex].amount %></td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div class="amount-paid f5">
+              Total : Rs.<%= order_ids[index].sum %>
+              <br>
+              Paid &nbsp;: Rs. 0.00
+            </div>
+            <div style="clear:both"></div>
+          </div>
+        </div>
+      <% } %>
+      </div>
+    </div>
+  </body>
+</html>

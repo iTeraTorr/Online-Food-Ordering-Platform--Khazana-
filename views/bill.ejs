@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill</title>
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+    <style media="screen">
+      .page
+      {
+        width:60%;
+        margin: auto;
+        border: 2px solid black;
+      }
+      .container
+      {
+        padding: 30px;
+      }
+      .heading
+      {
+          text-align: center;
+      }
+      .address
+      {
+          padding:30px 0px;
+      }
+      .some-company
+      {
+        clear: both;
+      }
+      .invoice-details
+      {
+        text-align: left;
+        float: right;
+      }
+      .amount-paid
+      {
+        float: right;
+        padding: 20px 0px;
+      }
+      .additional-notes
+      {
+        border-bottom: 1px solid grey;
+        text-align: center;
+        letter-spacing: 0.3725em;
+        margin: 5px 0px;
+      }
+      @media only screen and (max-width: 768px) {
+        .page {
+          width: 95%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="container">
+        <a href="/">Back to Home</a>
+        <div class="heading f2">Invoice</div>
+        <div class="address fl w-20 f4">
+          <%=restaurant.name%> <br>
+          <%=restaurant.street_name%><br>
+          <%=restaurant.city%><br>
+          <%=restaurant.contact_no%><br>
+        </div>
+        <div class="some-company">
+          <div class="some-guy fl w-20 f3">
+            Khazana by Iterators
+          </div>
+          <div class="fl w-60"></div>
+          <div class="invoice-details fl w-20">
+            <p>Invoice no : <%= order_detail.order_id %></p>
+            <p><%= order_detail.order_date %></p>
+            <p><%= order_detail.order_time %></p>
+          </div>
+          <div style="clear:both"></div>
+        </div>
+        <div class="overflow-auto">
+          <table class="f6 w-100 mw8 center" cellspacing="0">
+            <thead>
+              <tr class="stripe-dark">
+                <th class="fw6 tl pa3 bg-white">Food Name</th>
+                <th class="fw6 tl pa3 bg-white">Price</th>
+                <th class="fw6 tl pa3 bg-white">Quantity</th>
+                <th class="fw6 tl pa3 bg-white">Total Price</th>
+              </tr>
+            </thead>
+            <tbody class="lh-copy">
+              <% for(index=0;index < food_item.length;index++) { %>
+              <tr class="stripe-dark">
+                <td class="pa3"><%= food_item[index].name %></td>
+                <td class="pa3"><%= food_item[index].price %></td>
+                <td class="pa3"><%= quantity.get(food_item[index].food_id) %></td>
+                <td class="pa3"><%= quantity.get(food_item[index].food_id)*food_item[index].price %></td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+        <div class="total">
+          <div class="amount-paid fl w-30 f4">
+            Total : Rs.<%= total %>
+            <br>
+            Paid &nbsp;: Rs. 0.00
+          </div>
+          <div style="clear:both"></div>
+        </div>
+        <div class="footer">
+          <div class="additional-notes f3">
+            Additional Notes
+          </div>
+          <div class="note">
+            A finance charge of 1.5% will be made on unpaid balances after 30 days.
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Khazana</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR_iL81uylRVOfrclIE3EiomaDrA3rx35ODbfoTf-aPce7qWH8H" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/lib/animate/animate.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="/css/style.css" rel="stylesheet">
+  <style media="screen">
+    #header{
+      background: rgba(0, 0, 0, 0.6);
+    }
+    #main
+    {
+      margin-top: 75px;
+    }
+    p{
+      margin: 0;
+    }
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      max-width: 300px;
+      height: 340px;
+      margin: auto;
+      margin-top: 25px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+    .img{
+      height: 175px;
+    }
+    .description{
+      height: 125px;
+    }
+    .title {
+      color: grey;
+      font-size: 15px;
+    }
+    .heading{
+      font-size: 22px;
+      margin:10px 0px;
+    }
+    .quantity{
+      font-size: 16px;
+      margin: 10px 0px;
+    }
+
+    button {
+      border: none;
+      outline: 0;
+      display: inline-block;
+      color: white;
+      background-color: #000;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+    }
+
+    button:hover, a:hover {
+      opacity: 0.7;
+    }
+
+    #services .title {
+      font-weight: 850;
+      font-size: 20px;
+      margin:0;
+      text-transform: none;
+    }
+
+
+    @media(max-width:768px) {
+      #logo img {
+          width: 100%;
+          height: 100%;
+          position: relative;
+      }
+      .fa
+      {
+        float: right;
+      }
+      #header #logo img {
+        max-height: 100px;
+      }
+      .card {
+        height: 300px;
+        margin: auto;
+        margin-top: 15px;
+        margin-bottom: 15px;
+      }
+      .img{
+        height: 140px;
+      }
+      .description{
+        height: 90px;
+        margin: 0;
+      }
+      .title {
+        color: grey;
+        font-size: 12px;
+        margin: 0;
+      }
+      .heading{
+        font-size: 18px;
+        margin: 0;
+      }
+      .quantity{
+        font-size: 12px;
+        margin: 0;
+      }
+      #mobile-nav-toggle{
+        width: 20px;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+  <!--==========================
+  Header
+  ============================-->
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <a href="#"><img src="/img/logo.png" alt="" title=""/></a>
+      </div>
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <% if (request.session.loggedin) { %>
+              <li class="menu-has-children"><a href="#"><%= request.session.username %></a>
+                <ul>
+                  <li><a href="/profile">My Profile</a></li>
+                  <li><a href="/myorders">My Orders</a></li>
+                  <li><a href="/logout">Logout</a></li>
+                </ul>
+              </li>
+          	<% } else { %>
+              <li id="register-button"><a href="/register">Register</a></li>
+              <li id="login-button"><a href="/login">Login</a></li>
+          	<% } %>
+          <li class="menu-active"><a href="/">Home</a></li>
+          <li class="menu-has-children"><a href="#services">Our Delights</a>
+            <ul>
+              <%for (let index = 0; index < name.length; index++){%>
+              <li class="menu-has-children"><a href="/restaurant/<%= name[index].rest_id%>"><%=name[index].name%></a>
+              </li>
+              <% } %>
+            </ul>
+          </li>
+          <li><a href="/">About Us</a></li>
+          <li><a href="/">Contact Us</a></li>
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->
+
+
+  <main id="main">
+    <!--==========================
+      Services Section
+    ============================-->
+    <section id="services">
+      <div class="container wow fadeIn">
+        <div class="section-header">
+          <h3 class="section-title"><%= rest_name %></h3>
+        </div>
+        <div class="row">
+          <%for (index = 0; index < food.length; index++){%>
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="card">
+              <div class="img">
+                <img src="#" alt="img" style="width:100%;height:100%;">
+              </div>
+              <div class="description">
+                <p class="heading"><%=food[index].name%></p>
+                <p class="rating">Rating: <%=food[index].rating%></p>
+                <p class="price">₹​ <%=food[index].price%></p>
+                quantity : <span id="quantity<%=food[index].food_id%>">0</span>
+                <div class="row" style="text-align:center">
+                  <div class="col-md-6" >
+                    <button type="button" name="button" id="add-item" onclick='additem(<%=food[index].food_id%>)'>Add</button>
+                  </div>
+                  <div class="col-md-6">
+                    <button type="button" name="button" id="remove-item" onclick='removeitem(<%=food[index].food_id%>)'>Remove</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+
+      </div>
+
+    </section><!-- #services -->
+  </main>
+  <div class="order-now">
+    <% if (request.session.loggedin) { %>
+        <button type="button" name="button" class="btn btn-danger" onclick="order()">Order Now!</button>
+      <% } else { %>
+        <button type="button" name="button" class="btn btn-danger" onclick="alert('You are not Logged in')">Please log in to order food items</button>
+      <% } %>
+  </div>
+  <footer>Made using <a href="https://bootstrapmade.com/">BootStrapMade</a></footer>
+
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+
+      <!-- Javascitps -->
+
+    <script type="text/javascript">
+      var cart=[];
+      function additem(food_id)
+      {
+        cart.push(food_id);
+        console.log("quantity"+food_id);
+        let temp=document.querySelector("#quantity"+food_id);
+        temp.innerHTML=Number(temp.innerHTML)+1;
+
+      }
+      function removeitem(food_id)
+      {
+        var index = cart.indexOf(food_id);
+        if (index > -1)
+        {
+          cart.splice(index, 1);
+          document.querySelector("#quantity"+food_id).innerHTML-=1;
+        }
+        else
+        {
+          alert("quantity is already 0, cannot decrease more");
+        }
+      }
+      function order()
+      {
+        if(cart.length==0)
+        {
+          alert("No item is selected. Nothing to order");
+        }
+        else
+        {
+          const form = document.createElement('form');
+          form.method = "post";
+          form.action = "/order";
+          const hiddenField = document.createElement('input');
+          hiddenField.type = 'hidden';
+          hiddenField.name = "ourcart";
+          hiddenField.value = cart;
+          form.appendChild(hiddenField);
+          const restname = document.createElement('input');
+          restname.type = 'hidden';
+          restname.name = "rest_name";
+          restname.value = document.querySelector(".section-title").innerHTML;
+          form.appendChild(restname);
+          document.body.appendChild(form);
+          form.submit();
+        }
+      }
+    </script>
+    <script src="/lib/jquery/jquery.min.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/lib/wow/wow.min.js"></script>
+    <script src="/lib/easing/easing.min.js"></script>
+    <script src="/lib/superfish/superfish.min.js"></script>
+
+    <!-- Template Main Javascript File -->
+    <script src="/js/main.js"></script>
+
+  </body>
+  </html>

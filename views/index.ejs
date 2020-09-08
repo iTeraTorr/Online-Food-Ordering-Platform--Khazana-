@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Khazana</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR_iL81uylRVOfrclIE3EiomaDrA3rx35ODbfoTf-aPce7qWH8H" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/lib/animate/animate.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="/css/style.css" rel="stylesheet">
+  <style media="screen">
+  .category-name
+  {
+    text-shadow:0 0 3px white, 0 0 5px white;
+  }
+
+  .category-name:hover
+  {
+    text-shadow:0 0 3px #FF0000, 0 0 5px #0000FF;
+  }
+  @media(max-width:768px) {
+    #logo img {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    #header #logo img {
+      max-height: 100px;
+    }
+  }
+  #login-button
+  {
+    background-color: indigo;
+    border-radius: 35%;
+  }
+  #register-button
+  {
+    background-color: indigo;
+    border-radius: 35%;
+
+  }
+  </style>
+</head>
+
+<body>
+
+  <!--==========================
+  Header
+  ============================-->
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <a href="#"><img src="/img/logo.png" alt="" title=""/></a>
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+      <% if (request.session.loggedin) { %>
+          <li class="menu-has-children"><a href="#"><%= request.session.username %></a>
+            <ul>
+              <li><a href="/profile">My Profile</a></li>
+              <li><a href="/myorders">My Orders</a></li>
+              <li><a href="/logout">Logout</a></li>
+            </ul>
+          </li>
+      	<% } else { %>
+          <li id="register-button"><a href="/register">Register</a></li>
+          <li id="login-button"><a href="/login">Login</a></li>
+      	<% } %>
+          <li class="menu-active"><a href="#hero">Home</a></li>
+          <li class="menu-has-children"><a href="#services">Our Delights</a>
+            <ul>
+              <%for (index = 0; index < name.length; index++){%>
+              <li class="menu-has-children"><a href="/restaurant/<%= name[index].rest_id%>"><%=name[index].name%></a>
+              </li>
+              <% } %>
+            </ul>
+          </li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->
+
+  <!--==========================
+    Hero Section
+  ============================-->
+  <section id="hero">
+    <div class="hero-container">
+      <h1>Welcome to Khazana</h1>
+      <h2>The Xomato of IIT Indore</h2>
+      <a href="#services" class="btn-get-started">Order Now!</a>
+    </div>
+  </section><!-- #hero -->
+
+  <main id="main">
+    <!--==========================
+      Services Section
+    ============================-->
+    <section id="services">
+      <div class="container wow fadeIn">
+        <div class="section-header">
+          <h3 class="section-title">Restaurants</h3>
+          <p class="section-description">Hotes in IITI</p>
+        </div>
+
+        <div class="row">
+          <%for (index = 0; index < name.length; index++){%>
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+            <div class="box" style="background: ;background-repeat: no-repeat;background-size: cover;">
+              <h4 class="title"><a class="category-name" href="/restaurant/<%= name[index].rest_id %>"><%=name[index].name%></a></h4>
+            </div>
+          </div>
+          <% } %>
+        </div>
+
+      </div>
+
+    </section><!-- #services -->
+
+    <!--==========================
+      About Section
+    ============================-->
+    <section id="about">
+      <div class="container wow fadeInUp">
+        <div class="section-header">
+          <h3 class="section-title">About Us</h3>
+          <p class="section-description">We strive to feed your needs</p>
+        </div>
+      </div>
+      <div class="container wow fadeInUp mt-5">
+        <div class="row justify-content-center">
+          <div class="col-lg-3 col-md-4">
+            <div class="info">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+          </div>
+          <div class="col-lg-5 col-md-8">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/17/Bugs_Bunny.svg/1200px-Bugs_Bunny.svg.png" alt="image" style="max-width:60%; max-height:60%; margin-left:100px;"/>
+          </div>
+        </div>
+      </div>
+    </section><!-- #about -->
+
+    <!--==========================
+      Contact Section
+    ============================-->
+    <section id="contact">
+      <div class="container wow fadeInUp">
+        <div class="section-header">
+          <h3 class="section-title">Contact</h3>
+          <p class="section-description">We are eager to hear from you</p>
+        </div>
+      </div>
+
+
+      <div class="container wow fadeInUp mt-5">
+        <div class="row justify-content-center">
+
+          <div class="col-lg-3 col-md-4">
+
+            <div class="info">
+              <div>
+                <i class="fa fa-map-marker"></i>
+                <p>Infront of POD Building<br>IIT Indore, Simrol, 453552</p>
+              </div>
+
+              <div>
+                <i class="fa fa-envelope"></i>
+                <p>Khazana@iiti.ac.in</p>
+              </div>
+
+              <div>
+                <i class="fa fa-phone"></i>
+                <p>+91123456789</p>
+              </div>
+            </div>
+
+            <div class="social-links">
+              <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+              <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+              <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-5 col-md-8">
+            <div class="form">
+              <div id="sendmessage">Your message has been sent. Thank you!</div>
+              <div id="errormessage"></div>
+              <form action="" method="post" role="form" class="contactForm">
+                <div class="form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                  <div class="validation"></div>
+                </div>
+                <div class="text-center"><button type="submit">Send Message</button></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- #contact -->
+
+  </main>
+  <footer>Made using <a href="https://bootstrapmade.com/">BootStrapMade</a></footer>
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <!-- JavaScript Libraries -->
+  <script src="/lib/jquery/jquery.min.js"></script>
+  <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/lib/wow/wow.min.js"></script>
+  <script src="/lib/waypoints/waypoints.min.js"></script>
+  <script src="/lib/easing/easing.min.js"></script>
+  <script src="/lib/superfish/superfish.min.js"></script>
+  <script src="contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+
+</body>
+</html>
